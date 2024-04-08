@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        yt-hq
 // @namespace   https://github.com/ghostebony
-// @match       https://www.youtube.com/watch*
+// @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.0.2
+// @version     0.0.3
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq.user.js
