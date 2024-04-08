@@ -1,0 +1,15 @@
+{
+	"name": "userscripts",
+	"version": "1.0.0",
+	"type": "module",
+	"author": "Pedro Américo",
+	"repository": "github:ghostebony/userscripts",
+	"scripts": {
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"@types/node": "^20.12.5",
+		"prettier": "^3.2.5",
+		"typescript": "^5.4.4"
+	}
+}

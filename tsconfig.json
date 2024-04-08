@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"checkJs": true,
+		"target": "ESNext",
+		"lib": ["ESNext", "DOM"],
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"declaration": true,
+		"removeComments": false,
+		"verbatimModuleSyntax": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}
