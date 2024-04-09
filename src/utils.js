@@ -1,7 +1,10 @@
 /**
+ * @template {HTMLElement} T
+
  * @param {string} selector
  * @param {Element | Document} [el]
- * @return {Promise<HTMLElement>}
+ * 
+ * @return {Promise<T>}
  */
 function waitForElement(selector, el) {
 	el ??= document;
@@ -14,7 +17,7 @@ function waitForElement(selector, el) {
 			return resolve(element);
 		}
 
-		const observer = new MutationObserver((mutations) => {
+		const observer = new MutationObserver(() => {
 			/** @type {any} */
 			const element = el.querySelector(selector);
 

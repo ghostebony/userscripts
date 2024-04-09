@@ -4,31 +4,55 @@
 // @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.0.3
+// @version     0.1.0
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq.user.js
 // ==/UserScript==
 
-waitForElement('title').then((title) => {
-	const observer = new MutationObserver(() => {
-		waitForElement('button.ytp-hd-quality-badge').then((settings) => {
-			settings.click();
+const resolutions = [
+	'highres',
+	'hd2880',
+	'hd2160',
+	'hd1440',
+	'hd1080',
+	'hd720',
+	'large',
+	'medium',
+	'small',
+	'tiny',
+];
 
-			waitForElement(
-				'div.ytp-panel-menu > div.ytp-menuitem[role="menuitem"]:last-child',
-			).then((quality) => {
-				quality.click();
+const handler = async () => {
+	const videoPlayer =
+		await /** @type {typeof waitForElement<HTMLElement & VideoPlayerMethods>} */ (
+			waitForElement
+		)('#movie_player');
 
-				waitForElement(
-					'div.ytp-panel-menu > div.ytp-menuitem[role="menuitemradio"]:first-child',
-				).then((highestQuality) => {
-					highestQuality.click();
+	let quality = 0;
 
-				});
-			});
-		});
-	});
+	while (
+		videoPlayer.getAvailableQualityLevels().indexOf(resolutions[quality]) === -1 &&
+		quality < resolutions.length
+	) {
+		quality++;
+	}
 
-	observer.observe(title, { childList: true });
-});
+	if (videoPlayer.getPlaybackQuality() !== resolutions[quality]) {
+		videoPlayer.loadVideoById(
+			videoPlayer.getVideoData().video_id,
+			videoPlayer.getCurrentTime(),
+			resolutions[quality],
+		);
+	}
+
+	if (videoPlayer.setPlaybackQualityRange !== undefined) {
+		videoPlayer.setPlaybackQualityRange(resolutions[quality], resolutions[quality]);
+	}
+
+	videoPlayer.setPlaybackQuality(resolutions[quality]);
+};
+
+handler();
+
+window.addEventListener('loadstart', handler, true);
