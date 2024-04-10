@@ -4,7 +4,7 @@
 // @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.1.0
+// @version     0.1.1
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq.user.js
@@ -31,8 +31,10 @@ const handler = async () => {
 
 	let quality = 0;
 
+	const availableQualityLevels = videoPlayer.getAvailableQualityLevels();
+
 	while (
-		videoPlayer.getAvailableQualityLevels().indexOf(resolutions[quality]) === -1 &&
+		availableQualityLevels.indexOf(resolutions[quality]) === -1 &&
 		quality < resolutions.length
 	) {
 		quality++;
