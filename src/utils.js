@@ -1,9 +1,9 @@
 /**
  * @template {HTMLElement} T
-
+ *
  * @param {string} selector
  * @param {Element | Document} [el]
- * 
+ *
  * @return {Promise<T>}
  */
 function waitForElement(selector, el) {
