@@ -1,3 +1,5 @@
+const encoder = new TextEncoder();
+
 /**
  * @template {HTMLElement} T
  *
@@ -30,4 +32,18 @@ function waitForElement(selector, el) {
 
 		observer.observe(el, { childList: true, subtree: true });
 	});
+}
+
+/**
+ * @param {string} string
+ * @param {'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'} [hash]
+ *
+ * @return {Promise<string>}
+ */
+async function hash(string, hash = 'SHA-1') {
+	const hashBuffer = await crypto.subtle.digest(hash, encoder.encode(string));
+
+	return Array.from(new Uint8Array(hashBuffer))
+		.map((b) => b.toString(16).padStart(2, '0'))
+		.join('');
 }
