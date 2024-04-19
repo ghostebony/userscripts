@@ -4,7 +4,7 @@
 // @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.1.2
+// @version     0.1.3
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq/yt-hq.user.js
@@ -28,6 +28,8 @@ async function main() {
 		await /** @type {typeof waitForElement<HTMLElement & VideoPlayerMethods>} */ (
 			waitForElement
 		)('#movie_player');
+
+	videoPlayer.mutedAutoplay();
 
 	let quality = 0;
 
