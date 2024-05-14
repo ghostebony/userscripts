@@ -4,7 +4,7 @@
 // @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.1.3
+// @version     0.1.4
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq/yt-hq.user.js
@@ -23,13 +23,10 @@ const resolutions = [
 	'tiny',
 ];
 
-async function main() {
-	const videoPlayer =
-		await /** @type {typeof waitForElement<HTMLElement & VideoPlayerMethods>} */ (
-			waitForElement
-		)('#movie_player');
-
-	videoPlayer.mutedAutoplay();
+/**
+ * @param {VideoPlayer} videoPlayer
+ */
+function setQuality(videoPlayer) {
 
 	let quality = 0;
 
@@ -55,6 +52,26 @@ async function main() {
 	}
 
 	videoPlayer.setPlaybackQuality(resolutions[quality]);
+}
+
+async function main() {
+	let playerLoaded = false;
+
+	const videoPlayer = await /** @type {typeof waitForElement<VideoPlayer>} */ (waitForElement)(
+		'#movie_player',
+	);
+
+	if (!location.pathname.startsWith('/embed')) {
+		setQuality(videoPlayer);
+	} else {
+		if (!playerLoaded) {
+			setQuality(videoPlayer);
+
+			playerLoaded = true;
+
+			setImmediate(videoPlayer.stopVideo);
+		}
+	}
 }
 
 main();

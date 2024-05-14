@@ -1,5 +1,5 @@
 /**
- * @typedef {{mutedAutoplay: () => void}} MutedAutoplay
+ * @typedef {{stopVideo: () => void}} StopVideo
  *
  * @typedef {{getAvailableQualityLevels: () => string[]}} GetAvailableQualityLevels
  *
@@ -15,5 +15,7 @@
  *
  * @typedef {{setPlaybackQuality: (quality: string) => number}} SetPlaybackQuality
  *
- * @typedef {MutedAutoplay & GetAvailableQualityLevels & GetPlaybackQuality & LoadVideoById & GetVideoData & GetCurrentTime & SetPlaybackQualityRange & SetPlaybackQuality} VideoPlayerMethods
+ * @typedef {StopVideo & GetAvailableQualityLevels & GetPlaybackQuality & LoadVideoById & GetVideoData & GetCurrentTime & SetPlaybackQualityRange & SetPlaybackQuality} VideoPlayerMethods
+ *
+ * @typedef {HTMLElement & VideoPlayerMethods} VideoPlayer
  */
