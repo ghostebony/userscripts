@@ -4,7 +4,7 @@
 // @match       https://www.youtube.com/*
 // @grant       none
 // @require		https://raw.githubusercontent.com/ghostebony/userscripts/main/src/utils.js
-// @version     0.1.4
+// @version     0.1.5
 // @author      ghostebony
 // @description set the highest video quality possible
 // @downloadURL https://raw.githubusercontent.com/ghostebony/userscripts/main/src/yt-hq/yt-hq.user.js
@@ -65,11 +65,11 @@ async function main() {
 		setQuality(videoPlayer);
 	} else {
 		if (!playerLoaded) {
-			setQuality(videoPlayer);
-
 			playerLoaded = true;
 
-			setImmediate(videoPlayer.stopVideo);
+			setQuality(videoPlayer);
+
+			setTimeout(videoPlayer.stopVideo);
 		}
 	}
 }
