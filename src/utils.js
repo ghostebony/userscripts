@@ -52,7 +52,7 @@ async function hash(string, hash = 'SHA-1') {
  * @template {Record<string, unknown> | Array<Record<string, unknown>> | string[] | number[] | null} TData
  *
  * @param {string} url
- * @param {{method?: string}} [options]
+ * @param {{method?: string; data?: string; headers?: Record<string, string>}} [options]
  *
  * @return {Promise<{data: TData; status: number;}>}
  */
@@ -61,6 +61,8 @@ async function request(url, options) {
 		GM_xmlhttpRequest({
 			url,
 			method: options?.method ?? 'GET',
+			data: options?.data,
+			headers: options?.headers,
 			onabort: reject,
 			onerror: reject,
 			onload({ status, responseText }) {
