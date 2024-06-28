@@ -47,3 +47,29 @@ async function hash(string, hash = 'SHA-1') {
 		.map((b) => b.toString(16).padStart(2, '0'))
 		.join('');
 }
+
+/**
+ * @template {Record<string, unknown> | Array<Record<string, unknown>> | string[] | number[] | null} TData
+ *
+ * @param {string} url
+ * @param {{method?: string}} options
+ *
+ * @return {Promise<{data: TData; status: number;}>}
+ */
+async function request(url, options) {
+	return new Promise((resolve, reject) => {
+		GM_xmlhttpRequest({
+			url,
+			method: options.method ?? 'GET',
+			onabort: reject,
+			onerror: reject,
+			onload({ status, responseText }) {
+				resolve({
+					status: status,
+					data: responseText ? JSON.parse(responseText) : null,
+				});
+			},
+			ontimeout: reject,
+		});
+	});
+}
