@@ -75,3 +75,9 @@ async function request(url, options) {
 		});
 	});
 }
+
+export const utils = /** @type {const} */ ({
+	waitForElement,
+	hash,
+	request,
+});
