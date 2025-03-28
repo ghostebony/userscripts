@@ -3,6 +3,7 @@ const today = new Date();
 const encoder = new TextEncoder();
 
 const utils = /** @type {const} */ ({
+	//#region waitForElement
 	/**
 	 * @template {HTMLElement} T
 	 * @param {string} selector
@@ -34,6 +35,7 @@ const utils = /** @type {const} */ ({
 			observer.observe(el, { childList: true, subtree: true });
 		});
 	},
+	//#region hash
 	/**
 	 * @param {string} string
 	 * @param {'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'} [hash]
@@ -46,6 +48,7 @@ const utils = /** @type {const} */ ({
 			.map((b) => b.toString(16).padStart(2, '0'))
 			.join('');
 	},
+	//#region request
 	/**
 	 * @template {Record<string, unknown> | Record<string, unknown>[] | string[] | number[] | null} TData
 	 *
@@ -72,6 +75,7 @@ const utils = /** @type {const} */ ({
 			});
 		});
 	},
+	//#region parseDate
 	/**
 	 * @param {string} date
 	 * @returns {Date | null}
@@ -79,6 +83,7 @@ const utils = /** @type {const} */ ({
 	parseDate(date) {
 		return !isNaN(Date.parse(date)) ? new Date(date) : null;
 	},
+	//#region dateToString
 	/**
 	 * @param {Date} date
 	 * @returns {string}
@@ -86,7 +91,12 @@ const utils = /** @type {const} */ ({
 	dateToString(date) {
 		return date.toISOString().split('T')[0];
 	},
+	//#region getInfoHash
 	getInfoHash(/** @type {string} */ href) {
 		return new URL(href).searchParams.get('xt')?.replace('urn:btih:', '').toLowerCase();
+	},
+	//#region randomId
+	randomId(radix = 36) {
+		return Math.random().toString(radix).substring(2);
 	},
 });
